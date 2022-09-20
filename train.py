@@ -13,6 +13,7 @@ import argparse
 import time
 import torch.optim as optim
 import torch.backends.cudnn as cudnn
+from datetime import datetime
 
 from data import *
 
@@ -241,7 +242,7 @@ def train():
 
                 t1 = time.time()
                 print('[Epoch %d/%d][Iter %d/%d][lr %.6f]'
-                      '[Loss: obj %.2f || cls %.2f || bbox %.2f || total %.2f || size %d || time: %.2f]'
+                      '[Loss: obj %.2f || cls %.2f || bbox %.2f || total %.2f || size %d || time: %.2fs]'
                       % (epoch + 1, max_epoch, iter_i, epoch_size, tmp_lr,
                          conf_loss.item(),
                          cls_loss.item(),
@@ -281,4 +282,7 @@ def set_lr(optimizer, lr):
 
 
 if __name__ == '__main__':
+    st = time.time()
+    now = datetime.now()  # current date and time
     train()
+    print("Done, use time: {0:.2f} ms".format((time.time() - st) * 1000))
