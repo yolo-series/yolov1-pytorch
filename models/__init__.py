@@ -6,3 +6,4 @@
 # -----------------------------------------------------
 # -*- coding: utf-8 -*-
 from .yolo import YOLO
+from ._losses import loss

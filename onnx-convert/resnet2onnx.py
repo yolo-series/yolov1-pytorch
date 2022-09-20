@@ -24,10 +24,10 @@ if __name__ == '__main__':
     model = resnet18(pretrained=True).to(device)
     model.eval()
 
-    input = torch.randn(1, 3, 448, 448).to(device)
+    image = torch.randn(1, 3, 448, 448).to(device)
 
     try:
-        torch.onnx.export(model, input, args.output_path, opset_version=10, verbose=False)
+        torch.onnx.export(model, image, args.output_path, opset_version=10, verbose=False)
 
         # Checks
         onnx_model = onnx.load(args.output_path)  # load onnx net

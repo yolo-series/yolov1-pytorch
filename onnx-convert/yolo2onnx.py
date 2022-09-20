@@ -21,13 +21,13 @@ args = parser.parse_args()
 if __name__ == '__main__':
     print("found ", torch.cuda.device_count(), " GPU(s)")
     device = torch.device("cuda")
-    model = YOLO().to(device)
+    model = YOLO(device, input_size=416, export=True).to(device)
     model.eval()
 
-    input = torch.randn(1, 3, 448, 448).to(device)
+    image = torch.randn(1, 3, 416, 416).to(device)
 
     try:
-        torch.onnx.export(model, input, args.output_path, opset_version=10, verbose=False)
+        torch.onnx.export(model, image, args.output_path, opset_version=10, verbose=False)
 
         # Checks
         onnx_model = onnx.load(args.output_path)  # load onnx net
